@@ -1,0 +1,6 @@
+settings:
+  unlisted_by_default_categories:
+    type: category
+    list: true
+    default: ""
+    description: "Categories where new topics are created unlisted by default. Leave empty to apply to all categories."
