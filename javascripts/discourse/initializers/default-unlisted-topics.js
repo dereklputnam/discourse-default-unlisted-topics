@@ -6,15 +6,17 @@ export default {
 
   initialize() {
     withPluginApi("1.8.0", (api) => {
-      // Parse the configured category IDs from theme settings.
+      // Flatten category IDs from all entries in the objects setting.
       // Returns an empty array when no categories are configured,
-      // which means the default applies globally.
+      // which means the default applies globally to all categories.
       function getConfiguredCategoryIds() {
-        const raw = settings.unlisted_by_default_categories;
-        if (!raw) {
+        const entries = settings.unlisted_categories;
+        if (!Array.isArray(entries) || entries.length === 0) {
           return [];
         }
-        return raw.split("|").map(Number).filter(Boolean);
+        return entries
+          .flatMap((entry) => entry.category_ids || [])
+          .filter(Number.isFinite);
       }
 
       function shouldUnlistForCategory(categoryId) {
