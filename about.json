@@ -1,7 +1,9 @@
 {
   "name": "Default Unlisted Topics",
-  "about_url": null,
-  "license_url": null,
-  "authors": "",
-  "component": true
+  "component": true,
+  "license_url": "https://github.com/dereklputnam/discourse-default-unlisted-topics/blob/main/LICENSE",
+  "about_url": "https://github.com/dereklputnam/discourse-default-unlisted-topics",
+  "authors": "Derek Putnam",
+  "theme_version": "1.0.0",
+  "minimum_discourse_version": "3.1.0"
 }
