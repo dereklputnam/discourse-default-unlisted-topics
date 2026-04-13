@@ -11,8 +11,9 @@ export default apiInitializer("1.8.0", (api) => {
 
   function shouldUnlistForCategory(categoryId) {
     const configuredIds = getConfiguredCategoryIds();
+    // No categories configured = disabled, not global
     if (configuredIds.length === 0) {
-      return true;
+      return false;
     }
     return configuredIds.includes(categoryId);
   }
@@ -28,7 +29,11 @@ export default apiInitializer("1.8.0", (api) => {
 
   // Set unlisted as soon as the composer opens so the indicator shows immediately.
   const appEvents = api.container.lookup("service:app-events");
-  appEvents.on("composer:open", ({ model }) => applyUnlisted(model));
+  appEvents.on("composer:open", (data) => {
+    if (data?.model) {
+      applyUnlisted(data.model);
+    }
+  });
 
   // Also enforce at save time in case the category was changed after opening.
   // composerBeforeSave expects a Promise return value.

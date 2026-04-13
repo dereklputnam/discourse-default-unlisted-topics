@@ -2,4 +2,4 @@ unlisted_categories:
   type: list
   list_type: category
   default: ""
-  description: "Choose categories where new topics are created unlisted by default. Leave empty to apply to all categories."
+  description: "Choose categories where new topics are created unlisted by default. Leave empty to disable."
