@@ -17,16 +17,22 @@ export default apiInitializer("1.8.0", (api) => {
     return configuredIds.includes(categoryId);
   }
 
-  api.composerBeforeSave(function () {
-    const composer = api.container.lookup("service:composer");
-    const model = composer?.model;
-
+  function applyUnlisted(model) {
     if (!model || model.action !== CREATE_TOPIC) {
       return;
     }
-
     if (shouldUnlistForCategory(model.categoryId)) {
       model.set("unlistTopic", true);
     }
+  }
+
+  // Set unlisted as soon as the composer opens so the indicator shows immediately.
+  const appEvents = api.container.lookup("service:app-events");
+  appEvents.on("composer:open", ({ model }) => applyUnlisted(model));
+
+  // Also enforce at save time in case the category was changed after opening.
+  api.composerBeforeSave(function () {
+    const composer = api.container.lookup("service:composer");
+    applyUnlisted(composer?.model);
   });
 });
