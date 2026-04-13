@@ -6,15 +6,14 @@ export default {
 
   initialize() {
     withPluginApi("1.8.0", (api) => {
-      // Parse comma-separated category IDs from the theme setting.
+      // Parse pipe-separated category IDs from the list/category setting.
       // Returns an empty array when no categories are configured,
       // which means the default applies globally to all categories.
       function getConfiguredCategoryIds() {
-        const raw = settings.unlisted_categories || "";
-        return raw
-          .split(",")
-          .map((s) => parseInt(s.trim(), 10))
-          .filter((id) => !isNaN(id));
+        return settings.unlisted_categories
+          .split("|")
+          .map((id) => parseInt(id, 10))
+          .filter((id) => id);
       }
 
       function shouldUnlistForCategory(categoryId) {

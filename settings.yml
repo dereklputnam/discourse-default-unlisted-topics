@@ -1,4 +1,5 @@
 unlisted_categories:
-  type: string
+  type: list
+  list_type: category
   default: ""
-  description: "Comma-separated category IDs where new topics are created unlisted by default (e.g., '5,12,8'). Leave empty to apply to all categories."
+  description: "Choose categories where new topics are created unlisted by default. Leave empty to apply to all categories."
