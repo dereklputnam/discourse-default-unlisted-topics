@@ -2,9 +2,6 @@ import { apiInitializer } from "discourse/lib/api";
 import { CREATE_TOPIC } from "discourse/models/composer";
 
 export default apiInitializer("1.8.0", (api) => {
-  // Parse pipe-separated category IDs from the list/category setting.
-  // Returns an empty array when no categories are configured,
-  // which means the default applies globally to all categories.
   function getConfiguredCategoryIds() {
     return settings.unlisted_categories
       .split("|")
@@ -14,7 +11,6 @@ export default apiInitializer("1.8.0", (api) => {
 
   function shouldUnlistForCategory(categoryId) {
     const configuredIds = getConfiguredCategoryIds();
-    // No categories configured → apply globally
     if (configuredIds.length === 0) {
       return true;
     }
@@ -22,7 +18,9 @@ export default apiInitializer("1.8.0", (api) => {
   }
 
   api.composerBeforeSave(function () {
-    const model = this.model;
+    const composer = api.container.lookup("service:composer");
+    const model = composer?.model;
+
     if (!model || model.action !== CREATE_TOPIC) {
       return;
     }
