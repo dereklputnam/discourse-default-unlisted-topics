@@ -31,8 +31,10 @@ export default apiInitializer("1.8.0", (api) => {
   appEvents.on("composer:open", ({ model }) => applyUnlisted(model));
 
   // Also enforce at save time in case the category was changed after opening.
+  // composerBeforeSave expects a Promise return value.
   api.composerBeforeSave(function () {
     const composer = api.container.lookup("service:composer");
     applyUnlisted(composer?.model);
+    return Promise.resolve();
   });
 });
