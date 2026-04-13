@@ -1,8 +1,4 @@
 unlisted_categories:
-  type: objects
-  default: []
-  schema:
-    name: category
-    properties:
-      category_ids:
-        type: categories
+  type: string
+  default: ""
+  description: "Comma-separated category IDs where new topics are created unlisted by default (e.g., '5,12,8'). Leave empty to apply to all categories."
