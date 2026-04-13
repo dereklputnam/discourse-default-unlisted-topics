@@ -1,6 +1,4 @@
-settings:
-  unlisted_by_default_categories:
-    type: category
-    list: true
-    default: ""
-    description: "Categories where new topics are created unlisted by default. Leave empty to apply to all categories."
+unlisted_by_default_categories:
+  type: list
+  default: ""
+  description: "Pipe-separated list of category IDs where new topics are unlisted by default. Leave empty to apply to all categories. Find a category's ID in Admin → Categories."
